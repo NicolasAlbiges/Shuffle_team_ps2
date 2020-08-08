@@ -1,0 +1,237 @@
+{
+    "outfits": [
+        {
+            "members": [
+                {
+                    "character_id": "5428011263415946625",
+                    "name": "Meshug"
+                },
+                {
+                    "character_id": "5428013610426422913",
+                    "name": "nrvn"
+                },
+                {
+                    "character_id": "5428029729505499633",
+                    "name": "Walkiries"
+                },
+                {
+                    "character_id": "5428035526968078961",
+                    "name": "Slidarii"
+                },
+                {
+                    "character_id": "5428037660464812609",
+                    "name": "ursuak"
+                },
+                {
+                    "character_id": "5428044677958813761",
+                    "name": "porisbon"
+                },
+                {
+                    "character_id": "5428056629540330369",
+                    "name": "Falchunbzh"
+                },
+                {
+                    "character_id": "5428076919572799857",
+                    "name": "keffzz"
+                },
+                {
+                    "character_id": "5428085260441273985",
+                    "name": "MrTeratos"
+                },
+                {
+                    "character_id": "5428092148238898497",
+                    "name": "Anulos"
+                },
+                {
+                    "character_id": "5428095401445540545",
+                    "name": "Antho25"
+                },
+                {
+                    "character_id": "5428105192791468705",
+                    "name": "CronosFRE"
+                },
+                {
+                    "character_id": "5428109895928790993",
+                    "name": "Blutch7400"
+                },
+                {
+                    "character_id": "5428123302637473265",
+                    "name": "Erastrokov"
+                },
+                {
+                    "character_id": "5428139972583240273",
+                    "name": "miglou"
+                },
+                {
+                    "character_id": "5428143608870711617",
+                    "name": "Gunthard"
+                },
+                {
+                    "character_id": "5428144714699516945",
+                    "name": "DrBLOOD1995"
+                },
+                {
+                    "character_id": "5428153774053575793",
+                    "name": "Brennos67NC"
+                },
+                {
+                    "character_id": "5428153774064186593",
+                    "name": "FrenchlifeNC"
+                },
+                {
+                    "character_id": "5428179127150408593",
+                    "name": "Kedasus"
+                },
+                {
+                    "character_id": "5428188896446520961",
+                    "name": "Alexsowdeath"
+                },
+                {
+                    "character_id": "5428200837437961041",
+                    "name": "ARSENIC501R"
+                },
+                {
+                    "character_id": "5428201940313910369",
+                    "name": "Brenus"
+                },
+                {
+                    "character_id": "5428232026849484113",
+                    "name": "ASMOD4i"
+                },
+                {
+                    "character_id": "5428591867380649953",
+                    "name": "GratinDeCoquillettes"
+                },
+                {
+                    "character_id": "5428655647100607985",
+                    "name": "SchultzieButNConMiller"
+                },
+                {
+                    "character_id": "5428703501273137041",
+                    "name": "ASM0DIN"
+                },
+                {
+                    "character_id": "5428731025620682801",
+                    "name": "Shayxiz"
+                },
+                {
+                    "character_id": "5428772340576679537",
+                    "name": "Omnicias"
+                },
+                {
+                    "character_id": "5428779225245374369",
+                    "name": "cobra1978"
+                },
+                {
+                    "character_id": "5428779225265863569",
+                    "name": "GridyNC"
+                },
+                {
+                    "character_id": "5428779225309983633",
+                    "name": "xDyaz"
+                },
+                {
+                    "character_id": "5428795397178128081",
+                    "name": "BlueGayllo"
+                },
+                {
+                    "character_id": "5428812948094048289",
+                    "name": "Mamelouk"
+                },
+                {
+                    "character_id": "5428851341661914977",
+                    "name": "NcOverDose"
+                },
+                {
+                    "character_id": "5428870188932468401",
+                    "name": "pierre659NC"
+                },
+                {
+                    "character_id": "5428883591441828561",
+                    "name": "NightBlast3"
+                },
+                {
+                    "character_id": "5428916581511531265",
+                    "name": "Tizoux"
+                },
+                {
+                    "character_id": "5428962001683150545",
+                    "name": "MassiNC"
+                },
+                {
+                    "character_id": "5428995209012732241",
+                    "name": "WhiteHallNC"
+                },
+                {
+                    "character_id": "5428998138872227345",
+                    "name": "Geldegween"
+                },
+                {
+                    "character_id": "5429023480594332305",
+                    "name": "Tempete16"
+                },
+                {
+                    "character_id": "8254139212911005713",
+                    "name": "Mauti404"
+                },
+                {
+                    "character_id": "8254464143292833681",
+                    "name": "Kyxie"
+                },
+                {
+                    "character_id": "8255971480326551121",
+                    "name": "Mescu"
+                },
+                {
+                    "character_id": "8257461498426457633",
+                    "name": "0xton"
+                },
+                {
+                    "character_id": "8257461498436166433",
+                    "name": "Hellypse"
+                },
+                {
+                    "character_id": "8259289448318902049",
+                    "name": "Barn3tNC"
+                },
+                {
+                    "character_id": "8259705530255759841",
+                    "name": "Maryph"
+                },
+                {
+                    "character_id": "8262843598714918497",
+                    "name": "NaikenNC"
+                },
+                {
+                    "character_id": "8263461174212549457",
+                    "name": "amau22"
+                },
+                {
+                    "character_id": "8264730667221392849",
+                    "name": "RedbahamutNC"
+                },
+                {
+                    "character_id": "8267450303866865761",
+                    "name": "KVolker"
+                },
+                {
+                    "character_id": "8272693723967026193",
+                    "name": "RayZOrdeR"
+                },
+                {
+                    "character_id": "8282108246641680625",
+                    "name": "Gwaz01"
+                },
+                {
+                    "character_id": "8284163647264035425",
+                    "name": "LafiGun"
+                },
+                {
+                    "character_id": "8289857657760393633",
+                    "name": "MarcassinBleu"
+                }
+            ],
+            "tag": "1rpc"
+        }
+    ]
+}
