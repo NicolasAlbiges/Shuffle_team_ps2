@@ -60,15 +60,24 @@ async def on_message(message):
         options = message.content.split()
         options.remove('!sheet')
         if len(options) == 0:
-            return await message.channel.send("Mettez au moins un lieu d'un Googlesheet")
+            return await message.channel.send("Mettez au moins un lien d'un Googlesheet")
         players = googleSheets.get_players(options[0])
-        names = pseudo.replace_pseudos(players)
+        names = []
+        for player in players:
+            first_name = player.split()
+            if len(first_name) > 0 and len(first_name[0]) > 3:
+                names.append(first_name[0])
+        #names = pseudo.replace_pseudos(players)
         format_team = 12
+        if len(names) < 1:
+            return await message.channel.send("You needs to put at least 2 people in the player list")
         #TODO Verifier que cest un int
         if len(options) == 2 and options[1] is int:
             format_team = int(options[1])
         shuffle_team_query = teamManager.shuffle_teams(names, format_team)
         resp = ""
+        if len(shuffle_team_query) == 0:
+            return await message.channel.send("The bot couldnt retreive the players, something went wrong")
         if len(shuffle_team_query[0]) != 0:
             str_lost_names = ', '.join(shuffle_team_query[0])
             resp = "Je n'ai pas réussis à trouver ces perosnnes : " + str_lost_names + "\n"
@@ -81,7 +90,7 @@ async def on_message(message):
         if len(options) == 1:
             return await message.channel.send("Il manque l'adresse du GoogleSheet !")
         options.remove('!clear-player-names')
-        googleSheets.clear_sheets(options[0])
+        googleSheets.clear_sheet(options[0])
         await message.channel.send("Google sheet propre !")
 
     if message.content.startswith('!clear-teams'):
@@ -89,7 +98,7 @@ async def on_message(message):
         if len(options) == 1:
             return await message.channel.send("Il manque l'adresse du GoogleSheet !")
         options.remove('!clear-teams')
-        googleSheets.clear_sheets(options[0])
+        googleSheets.clear_sheet(options[0])
         await message.channel.send("Google sheet propre !")
 
     if message.content.startswith('!clear-sheet'):
@@ -97,7 +106,7 @@ async def on_message(message):
         if len(options) == 1:
             return await message.channel.send("Il manque l'adresse du GoogleSheet !")
         options.remove('!clear-sheet')
-        googleSheets.clear_sheets(options[0])
+        googleSheets.clear_sheet(options[0])
         await message.channel.send("Google sheet propre !")
 
 

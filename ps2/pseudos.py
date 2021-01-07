@@ -64,7 +64,9 @@ class Pseudo:
     def replace_pseudos(self, pseudo_list):
         i = 0
         while i != len(pseudo_list):
+            print("This is the orignal pseudo %s"% pseudo_list[i])
             current_pseudo = self.find_pseudo(pseudo_list[i])
+            print("This is the current pseudo %s\n"% current_pseudo)
             if current_pseudo != "error 404":
                 pseudo_list[i] = current_pseudo
             i = 1 + i

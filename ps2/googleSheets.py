@@ -6,8 +6,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-teams_placements = [["E7:E18", "F7:F18"], ["H7:H18", "I7:I18"], ["K7:K18", "L7:L18"]]
-players_names = "B6:B49"
+teams_placements = [["E4:E20", "F4:F20"], ["H4:H18", "I7:I20"], ["K4:K20", "L4:L20"]]
+players_names = "B3:B49"
 
 
 class GoogleSheets:
@@ -44,8 +44,9 @@ class GoogleSheets:
         result = self.sheet.values().get(spreadsheetId=self.SAMPLE_SPREADSHEET_ID,
                                          range=self.SAMPLE_RANGE_NAME, majorDimension='COLUMNS').execute()
         values = result.get('values', [])
+        print(values)
         if values:
-            return values[1][5:]
+            return values[1][2:]
         return []
 
     def place_teams(self, teams, i, i_team_placement):
