@@ -6,7 +6,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-teams_placements = [["E4:E20", "F4:F20"], ["H4:H18", "I7:I20"], ["K4:K20", "L4:L20"]]
+teams_placements = [["E4:E20", "F4:F20"], ["H4:H18", "I4:I20"], ["K4:K30", "L4:L30"]]
 players_names = "B3:B49"
 
 
@@ -50,6 +50,8 @@ class GoogleSheets:
         return []
 
     def place_teams(self, teams, i, i_team_placement):
+        if len(teams[i]) > 12:
+            i_team_placement = 2
         print("\nTEAM 1 ->", [teams[i] + [''] * (12 - len(teams[i]))])
         resource = {
             "majorDimension": "COLUMNS",
