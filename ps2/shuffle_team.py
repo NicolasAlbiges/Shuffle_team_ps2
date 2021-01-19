@@ -119,7 +119,7 @@ class TeamManager:
             'kd_inf': check_division_zero(kills_inf, deaths_inf),
             'kd_air': check_division_zero(kills_air, deaths_air),
             'kpm_inf': check_division_zero(kills_inf, int(stat_pseudo['times']['minutes_played'])),
-            'kpm_air': check_division_zero(kills_air / int(stat_pseudo['times']['minutes_played'])),
+            'kpm_air': check_division_zero(kills_air, int(stat_pseudo['times']['minutes_played'])),
             'minutes_played': int(stat_pseudo['times']['minutes_played']),
             'acc': acc,
             'hsr': hsr,
