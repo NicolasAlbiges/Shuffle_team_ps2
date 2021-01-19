@@ -25,7 +25,7 @@ def shuffle_teams_result(shuffle_team_query, format_team):
       str_lost_names = ', '.join(shuffle_team_query[0])
       resp = "Je n'ai pas réussis à trouver ces perosnnes : " + str_lost_names + "\n"
     googleSheets.write_team(shuffle_team_query)
-    resp = resp + "Les teams sont prêtes au format" + str(format_team) + "vs" + str(format_team)
+    resp = resp + "The teams are ready with format " + str(format_team) + "vs" + str(format_team)
     return resp
 
 @client.event

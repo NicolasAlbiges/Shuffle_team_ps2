@@ -17,6 +17,11 @@ def get_data():
   return "error"
 
 
+def check_division_zero(dividend, divisor):
+    if dividend == 0 or divisor == 0:
+        return 0
+    return dividend / divisor
+
 class TeamManager:
     def __init__(self):
         self.pseudos_stats = []
@@ -51,11 +56,12 @@ class TeamManager:
         return char_list
 
     def get_weapon_stats(self, stats):
-        inf_weapon_hit_count = 1
-        inf_weapon_fire_count = 1
-        weapon_play_time = 1
-        weapon_score = 1
-        deaths = 1
+        inf_weapon_hit_count = 0
+        inf_weapon_fire_count = 0
+        weapon_play_time = 0
+        weapon_score = 0
+        deaths_inf = 0
+        deaths_air = 0
         if "weapon_stat" not in stats:
             print("Error in data")
             return 1
@@ -69,14 +75,17 @@ class TeamManager:
             if int(stat["item_id"]) in self.weapons['weapons'] and stat["stat_name"] == "weapon_fire_count":
                 inf_weapon_fire_count = inf_weapon_fire_count + int(stat["value"])
             if int(stat["item_id"]) in self.weapons['weapons_air'] and stat["stat_name"] == "weapon_deaths":
-                deaths = int(stat["value"]) + deaths
-        acc = (inf_weapon_hit_count / inf_weapon_fire_count) * 100
-        return acc, weapon_play_time, weapon_score, deaths
+                deaths_air = int(stat["value"]) + deaths_air
+            if int(stat["item_id"]) in self.weapons['weapons'] and stat["stat_name"] == "weapon_deaths":
+                deaths_inf = int(stat["value"]) + deaths_inf
+        acc = check_division_zero(inf_weapon_hit_count, inf_weapon_fire_count) * 100
+        return acc, weapon_play_time, weapon_score, deaths_inf, deaths_air
 
     def get_weapon_stat_faction(self, stats):
-        kills = 1
-        kills_heads = 1
-        weapon_vehicle_kills = 1
+        kills_air = 0
+        kills_inf = 0
+        kills_heads = 0
+        weapon_vehicle_kills = 0
         if "weapon_stat_by_faction" not in stats:
             print("Error in data")
             return 1
@@ -84,11 +93,13 @@ class TeamManager:
             if int(stat['item_id']) in self.weapons['weapons_air'] and stat["stat_name"] == "weapon_vehicle_kills":
                 weapon_vehicle_kills = int(stat["value_vs"]) + int(stat["value_tr"]) + int(stat["value_nc"]) + weapon_vehicle_kills
             if int(stat['item_id']) in self.weapons['weapons_air'] and stat["stat_name"] == "weapon_kills":
-                kills = int(stat["value_vs"]) + int(stat["value_tr"]) + int(stat["value_nc"]) + kills
+                kills_air = int(stat["value_vs"]) + int(stat["value_tr"]) + int(stat["value_nc"]) + kills_air
+            if int(stat['item_id']) in self.weapons['weapons'] and stat["stat_name"] == "weapon_kills":
+                kills_inf = int(stat["value_vs"]) + int(stat["value_tr"]) + int(stat["value_nc"]) + kills_inf
             if int(stat['item_id']) in self.weapons['weapons'] and stat["stat_name"] == "weapon_headshots":
                 kills_heads = int(stat["value_vs"]) + int(stat["value_tr"]) + int(stat["value_nc"]) + kills_heads
-        hsr = (kills_heads / kills) * 100
-        return hsr, kills, weapon_vehicle_kills
+        hsr = check_division_zero(kills_heads, kills_inf) * 100
+        return hsr, kills_inf, kills_air, weapon_vehicle_kills
 
     def get_stats_history(self, stats):
         deaths = 1
@@ -101,17 +112,14 @@ class TeamManager:
         return deaths, kills
 
     def get_personal_stats(self, stat_pseudo):
-        acc, weapon_play_time, weapon_score, deaths = self.get_weapon_stats(stat_pseudo['stats'])
-        hsr, kills, weapon_vehicle_kills = self.get_weapon_stat_faction(stat_pseudo['stats'])
-        kd = kills / deaths
+        acc, weapon_play_time, weapon_score, deaths_inf, deaths_air = self.get_weapon_stats(stat_pseudo['stats'])
+        hsr, kills_inf, kills_air, weapon_vehicle_kills = self.get_weapon_stat_faction(stat_pseudo['stats'])
         #deaths, kills = self.get_stats_history(stat_pseudo)
-        if int(stat_pseudo['times']['minutes_played']) == 0:
-            stat_pseudo['times']['minutes_played'] = 1
-        if deaths == 0:
-            deaths = 1
         stats = {
-            'kd': kd,
-            'kpm': kills / int(stat_pseudo['times']['minutes_played']),
+            'kd_inf': check_division_zero(kills_inf, deaths_inf),
+            'kd_air': check_division_zero(kills_air, deaths_air),
+            'kpm_inf': check_division_zero(kills_inf, int(stat_pseudo['times']['minutes_played'])),
+            'kpm_air': check_division_zero(kills_air / int(stat_pseudo['times']['minutes_played'])),
             'minutes_played': int(stat_pseudo['times']['minutes_played']),
             'acc': acc,
             'hsr': hsr,
@@ -120,13 +128,13 @@ class TeamManager:
         return stats
 
     def get_personal_stats_air(self, stat_pseudo):
-        acc, weapon_play_time, weapon_score, deaths = self.get_weapon_stats(stat_pseudo['stats'])
-        hsr, kills, weapon_vehicle_kills = self.get_weapon_stat_faction(stat_pseudo['stats'])
-        kd = kills / deaths
+        acc, weapon_play_time, weapon_score, deaths_inf, deaths_air = self.get_weapon_stats(stat_pseudo['stats'])
+        hsr, kills_inf, kills_air, weapon_vehicle_kills = self.get_weapon_stat_faction(stat_pseudo['stats'])
+        kd = check_division_zero(kills_air, deaths_air)
         stats = {
-            'kd': kd,
+            'kd_air': kd,
             'minutes_played': weapon_play_time,
-            'kills': kills,
+            'kills_air': kills_air,
             'Vkills': weapon_vehicle_kills,
         }
         return stats
@@ -175,7 +183,6 @@ class TeamManager:
         return people_not_found
 
     def make_score(self, kills, vkills, minutes, kd):
-        score = 0
         if kd > 10:
             kd = 10
         if kills > 20000:
@@ -183,24 +190,23 @@ class TeamManager:
         days = (((minutes / 50) / 60) / 24)
         if days > 30:
             days = 30
-        print("The kills %f    The VKills %f    Days played %f   Vkills/minutes %f  and kd  %f" % ((kills / 1000), (vkills / 1000), days, ((vkills / (minutes / 60)) * 100), kd))
-        score = (kills / 1000) + (vkills / 1000) + days + ((vkills / (minutes / 60)) * 100) + kd
+        print("MAKING SCORE METHOD : The kills %f    The VKills %f    Days played %f   Vkills/minutes %f  and kd  %f" % ((kills / 1000), (vkills / 1000), days, (check_division_zero(vkills, (minutes / 60)) * 100), kd))
+        score = (kills / 1000) + (vkills / 1000) + days + (check_division_zero(vkills, (minutes / 60)) * 100) + kd
         return score
 
     def shuffle_teams_air(self, player):
         stats = self.get_personal_stats_air(player)
         stats['name'] = player['name']['first']
-        print("Name : %s"% stats['name'])
-        stats['score'] = self.make_score(stats['kills'], stats['Vkills'], stats['minutes_played'], stats['kd'])
-        print("The score %d\n"% stats['score'])
+        stats['score'] = self.make_score(stats['kills_air'], stats['Vkills'], stats['minutes_played'], stats['kd_air'])
+        print("The name %s  The score : %d kills_air %f Vkills %f minute_played %f"% (stats['name'], stats['score'], stats['kills_air'] , stats['Vkills'], stats['minutes_played']))
         self.pseudos_stats.append(stats)
 
     def shuffle_teams_inf(self, player):
         stats = self.get_personal_stats(player)
         stats['name'] = player['name']['first']
-        stats['score'] = (stats['kpm'] * 100) + (stats['kd'] * 100) + stats['ivi'] + (
+        stats['score'] = (stats['kpm_inf'] * 100) + (stats['kd_inf'] * 100) + stats['ivi'] + (
                 (stats['minutes_played'] / 60) / 24 / 2)
-        print("The name %f  The score : %d"% (stats['name'], stats['score']))
+        print("The name %s  The score : %d kpm_inf %f kd_inf %f ivi %f minute_played %f"% (stats['name'], stats['score'], stats['kpm_inf'] , stats['kd_inf'], stats['ivi'], ((stats['minutes_played'] / 60) / 24 / 2)))
         self.pseudos_stats.append(stats)
 
     def shuffle_teams(self, pseudos_names, format_team, type_team):

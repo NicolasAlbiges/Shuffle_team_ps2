@@ -68,6 +68,7 @@ class GoogleSheets:
                                    range=teams_placements[i_team_placement][1], body=resource, valueInputOption="USER_ENTERED").execute()
 
     def write_team(self, teams):
+        print(teams)
         if self.SAMPLE_SPREADSHEET_ID is None:
             return
         i = 1
